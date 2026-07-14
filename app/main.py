@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from app.scanner import scan_content, calculate_risk_score
+from app.scanner import (scan_content, calculate_risk_score, decide_action,)
 
 app = FastAPI()
 
@@ -15,9 +15,11 @@ def scan(payload: dict):
 
         findings = scan_content(content)
         risk_score = calculate_risk_score(findings)
+        decision = decide_action(risk_score)
 
         return {
               "findings": findings,
               "count": len(findings),
               "risk_score": risk_score,
+              "decision": decision,
         }

@@ -47,7 +47,6 @@ def scan_content(content: str):
         )
     return findings
 
-
 def calculate_risk_score(findings):
     score = 0
     for finding in findings:
@@ -60,3 +59,10 @@ def calculate_risk_score(findings):
         elif severity == "critical":
             score += 80
     return min(score, 100)
+
+def decide_action(risk_score: int):
+    if risk_score >= 80:
+        return "block"
+    if risk_score >= 40:
+        return "warn"
+    return "allow"
