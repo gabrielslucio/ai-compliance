@@ -1,11 +1,6 @@
-import re
 from app.config.scanner_config import DETECTOR_TYPES, DETECTOR_NAMES
 from app.config.risk_config import RISK_SCORES
-from app.detectors import DETECTOR_FUNCTIONS
-from app.detectors import find_emails, find_ibans, find_passwords
-
-
-
+from app.detector_registry import DETECTOR_FUNCTIONS
 
 def create_finding(
         finding_type: str,
