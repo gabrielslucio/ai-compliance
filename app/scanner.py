@@ -1,5 +1,6 @@
-from app.config.risk_config import RISK_SCORES
+from app.config.risk_config import (RISK_SCORES, SEVERITY_ORDER,)
 from app.detector_registry import DETECTORS
+from app.models.finding import Finding
 
 def create_finding(
         finding_type: str,
@@ -8,13 +9,13 @@ def create_finding(
         category: str,
         replacement: str,
 ):
-    return {
-        "type": finding_type,
-        "value": value,
-        "severity": severity,
-        "category": category,
-        "replacement": replacement,
-    }
+    return Finding(
+        finding_type = finding_type,
+        value = value,
+        severity = severity,
+        category = category,
+        replacement = replacement,
+    )
 
 def scan_content(content: str):
     findings = []
@@ -44,8 +45,8 @@ def mask_content(content: str, findings):
 
     for finding in findings:
         masked_content = masked_content.replace(
-            finding["value"],
-            finding["replacement"],
+            finding.value,
+            finding.replacement,
         )
     return masked_content
 
@@ -53,8 +54,7 @@ def calculate_risk_score(findings):
     score = 0
 
     for finding in findings:
-        severity = finding["severity"]
-        print("SEVERITY:", severity)
+        severity = finding.severity
         score += RISK_SCORES[severity]
     return min(score, 100)   
 
@@ -65,3 +65,44 @@ def decide_action(risk_score: int):
         return "warn"
     return "allow"
 
+def get_categories(findings):
+    categories = set()
+
+    for finding in findings:
+        categories.add(
+            finding.category
+        )
+    return sorted(categories)
+
+def get_summary(findings):
+    summary = {
+        "total_findings": len(findings),
+        "by_category": {},
+    }
+
+    for finding in findings:
+        category = finding.category
+
+        if category not in summary["by_category"]:
+            summary["by_category"][category] = 0
+        summary["by_category"][category] += 1
+        
+    return summary
+
+def get_highest_severity(findings):
+    if not findings:
+        return None
+    
+    highest_severity = "medium"
+
+    for finding in findings:
+        severity = finding.severity
+
+        if(
+            SEVERITY_ORDER[severity]
+            >
+            SEVERITY_ORDER[highest_severity]
+        ):
+            highest_severity = severity
+
+    return highest_severity

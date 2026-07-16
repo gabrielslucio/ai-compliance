@@ -3,3 +3,9 @@ RISK_SCORES = {
     "high": 50,
     "critical": 80,
 }
+
+SEVERITY_ORDER = {
+    "medium": 1,
+    "high": 2,
+    "critical": 3,
+}
