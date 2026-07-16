@@ -9,3 +9,9 @@ DETECTOR_TYPES = {
         "severity": "critical",
     }
 }
+
+DETECTOR_NAMES = [
+    "email",
+    "iban",
+    "password",
+]

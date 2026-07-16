@@ -17,3 +17,9 @@ def find_passwords(content: str):
         r"(?i)\b(password|passwd|pwd|secret)\s*[:=]\s*\S+",
         content,
     )
+
+DETECTOR_FUNCTIONS = {
+    "email": find_emails,
+    "iban": find_ibans,
+    "password": find_passwords,
+}
