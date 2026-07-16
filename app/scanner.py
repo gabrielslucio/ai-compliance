@@ -1,6 +1,5 @@
-from app.config.scanner_config import DETECTOR_TYPES, DETECTOR_NAMES
 from app.config.risk_config import RISK_SCORES
-from app.detector_registry import DETECTOR_FUNCTIONS
+from app.detector_registry import DETECTORS
 
 def create_finding(
         finding_type: str,
@@ -16,12 +15,10 @@ def create_finding(
 def scan_content(content: str):
     findings = []
 
-    for detector_name in DETECTOR_NAMES:
-        detector_function = DETECTOR_FUNCTIONS[detector_name]
-
+    for detector_name, detector in DETECTORS.items():
+        detector_function = detector["function"]
+        severity = detector["severity"]
         values = detector_function(content)
-
-        severity = DETECTOR_TYPES[detector_name]["severity"]
 
         for value in values:
             findings.append(
