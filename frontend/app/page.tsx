@@ -1,5 +1,8 @@
 "use client";
 
+import {PageHeader} from "../components/ui/PageHeader";
+import {PageContainer} from "../components/ui/PageContainer";
+import {Button} from "../components/ui/Button";
 import {FindingsTable} from "../components/scanner/FindingsTable";
 import {MaskedContentCard} from "../components/scanner/MaskedContentCard";
 import {CategoryBadges} from "../components/scanner/CategoryBadges";
@@ -23,10 +26,8 @@ export default function Home() {
   }
 
   return (
-    <main className="min-h-screen p-8">
-      <h1 className="mb-6 text-3xl font-bold">
-        AI Compliance Scanner
-      </h1>
+    <PageContainer>
+      <PageHeader title="AI Compliance Scanner" description="Scan, classify and protect sensitive data." />
 
       <textarea 
         className="h-48 w-full rounded border p-4"
@@ -34,12 +35,11 @@ export default function Home() {
         value={content}
         onChange={(e) => setContent(e.target.value)}
       />
-      <button 
-        className="my-4 rounded bg-blue-600 px-4 py-2 text-white"
+      <Button
         onClick={handleScan}  
       >
         Scan
-      </button>
+      </Button>
     {result && (
       <div className="mt-6 grid gap-4 md:grid-cols-2">
         <DecisionCard decision={result.decision} />
@@ -61,6 +61,6 @@ export default function Home() {
         <FindingsTable findings={result.findings} />
       </div>
     )}
-    </main>
+    </PageContainer>
   )
 }

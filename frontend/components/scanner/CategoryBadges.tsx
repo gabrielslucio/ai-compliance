@@ -1,4 +1,5 @@
 import {Card} from "../ui/Card";
+import {Badge} from "../ui/Badge";
 
 type CategoryBadgesProps = {
     categories: string[];
@@ -14,9 +15,9 @@ export function CategoryBadges({
             </h2>
             <div className="flex flex-wrap gap-2">
                 {categories.map((category) => (
-                    <span key={category} className="rounded-full border border-zinc-700 bg-zinc-800 px-3 py-1 text-sm">
+                    <Badge key={category}>
                         {category.toUpperCase()}
-                    </span>
+                    </Badge>
                 ))}
             </div>
         </Card>
