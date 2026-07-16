@@ -1,4 +1,6 @@
 import re
+from app.config.scanner_config import DETECTOR_TYPES
+from app.config.risk_config import RISK_SCORES
 
 def create_finding(
         finding_type: str,
@@ -10,6 +12,7 @@ def create_finding(
         "value": value,
         "severity": severity,
     }
+
 
 def find_emails(content: str):
     return re.findall(
@@ -34,42 +37,36 @@ def scan_content(content: str):
 
     for email in find_emails(content):
         findings.append(
-            {
-                "type": "email",
-                "value": email,
-                "severity": "medium",
-            }
+            create_finding(
+                "email",
+                email,
+                DETECTOR_TYPES["email"]["severity"],
+            )
         )
     for iban in find_ibans(content):
         findings.append(
-            {
-                "type": "iban",
-                "value": iban,
-                "severity": "high",
-            }
+            create_finding(
+                "iban",
+                iban,
+                DETECTOR_TYPES["iban"]["severity"],
+            )
         )
     for password in find_passwords(content):
         findings.append(
-            {
-                "type": "password",
-                "value": password,
-                "severity": "critical",
-            }
+            create_finding(
+                "password",
+                password,
+                DETECTOR_TYPES["password"]["severity"],
+            )
         )
     return findings
 
 def calculate_risk_score(findings):
-    score = 0
-    for finding in findings:
-        severity = finding["severity"]
-
-        if severity == "medium":
-            score += 20
-        elif severity == "high":
-            score += 50
-        elif severity == "critical":
-            score += 80
-    return min(score, 100)
+   score = 0
+   for finding in findings:
+       severity = finding["severity"]
+       score += RISK_SCORES[severity]
+       return min(score, 100)   
 
 def decide_action(risk_score: int):
     if risk_score >= 80:
@@ -78,12 +75,3 @@ def decide_action(risk_score: int):
         return "warn"
     return "allow"
 
-def create_finding(
-        finding_type: str,
-        value: str,
-        severity: str,
-): return {
-    "type": finding_type,
-    "value": value,
-    "severity": severity,
-}
