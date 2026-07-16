@@ -77,3 +77,13 @@ def decide_action(risk_score: int):
     if risk_score >= 40:
         return "warn"
     return "allow"
+
+def create_finding(
+        finding_type: str,
+        value: str,
+        severity: str,
+): return {
+    "type": finding_type,
+    "value": value,
+    "severity": severity,
+}
