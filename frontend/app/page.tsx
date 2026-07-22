@@ -48,7 +48,7 @@ export default function Home() {
 
   return (
     <PageContainer>
-      <PageHeader title="AI Compliance Scanner" description="Scan, classify and protect sensitive data." />
+      <PageHeader title="AI Compliance Scanner" description="Detect, classify and protect sensitive information with automated masking, risk scoring and compliance insights." />
       <ScannerInputCard content={content} onChange={(e) => setContent(e.target.value)} onScan={handleScan} isLoading={isLoading}/>
     {result && (
       <ScanResults result={result} />

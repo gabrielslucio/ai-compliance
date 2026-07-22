@@ -21,7 +21,7 @@ export function ScannerInputCard({
             <div className="space-y-4">
                 <Textarea value={content} placeholder="Paste content here..." onChange={onChange} />
             </div>
-            <Button onClick={onScan} disabled={isLoading}>
+            <Button onClick={onScan} disabled={isLoading || !content.trim()}>
                 {isLoading ? "Scanning..." : "Scan Content"}
             </Button>
         </Card>

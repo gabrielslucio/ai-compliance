@@ -14,7 +14,7 @@ export function Textarea({
             value={value} 
             placeholder={placeholder} 
             onChange={onChange} 
-            className="h-56 mb-5 w-full rounded-xl border border-zinc-800 bg-zinc-900 p-4 outline-none" 
+            className="h-56 mb-5 w-full rounded-xl border border-zinc-800 bg-zinc-900 p-4 outline-none transition focus:border-zinc-700 focus:ring-2 focus:ring-zinc-700" 
         />
     );
 }

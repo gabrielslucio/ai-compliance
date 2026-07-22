@@ -14,5 +14,9 @@ export async function scanContent(
         }
     );
 
+    await new Promise(
+        (resolve) => setTimeout(resolve, 2000)
+    );
+
     return response.json();
 }
