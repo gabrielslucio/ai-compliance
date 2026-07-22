@@ -25,23 +25,31 @@ import {useState} from "react";
 export default function Home() {
   const [content, setContent] = useState("");
   const [result, setResult] = useState<ScanResult | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   async function handleScan(){
     if(!content.trim()) {
       return;
     }
     try {
+      setIsLoading(true);
+
       const data = await scanContent(content);
+      
       setResult(data);
+
     } catch (error) {
       console.log(error)
+
+    } finally {
+      setIsLoading(false);
     }
   }
 
   return (
     <PageContainer>
       <PageHeader title="AI Compliance Scanner" description="Scan, classify and protect sensitive data." />
-      <ScannerInputCard content={content} onChange={(e) => setContent(e.target.value)} onScan={handleScan} />
+      <ScannerInputCard content={content} onChange={(e) => setContent(e.target.value)} onScan={handleScan} isLoading={isLoading}/>
     {result && (
       <ScanResults result={result} />
     )}

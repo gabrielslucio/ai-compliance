@@ -2,6 +2,7 @@ import {Card} from "../ui/Card";
 import {Finding} from "../../types/finding";
 import {StatusBadge} from "../ui/StatusBadge";
 import {Badge} from "../ui/Badge";
+import {formatLabel} from "../../lib/format";
 
 type FindingsTableProps = {
     findings: Finding[];
@@ -33,7 +34,7 @@ export function FindingsTable({
                     {findings.map((finding, index) => (
                         <tr key={index} className="border-b border-zinc-800">
                             <td className="py-2"> 
-                                {finding.type}
+                                {formatLabel(finding.type)}
                             </td>
                             <td className="py-2">
                                 <StatusBadge value={finding.severity} />
