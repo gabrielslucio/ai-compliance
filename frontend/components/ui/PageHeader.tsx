@@ -9,7 +9,7 @@ export function PageHeader({
 } : PageHeaderProps) {
     return (
         <header className="mb-8">
-            <h1 className="text-4-xl font-bold">
+            <h1 className="text-4xl font-bold">
                 {title}
             </h1>
             <p className="mt-2 text-zinc-400">
