@@ -1,5 +1,7 @@
 import {Card} from "../ui/Card";
 import {Finding} from "../../types/finding";
+import {StatusBadge} from "../ui/StatusBadge";
+import {Badge} from "../ui/Badge";
 
 type FindingsTableProps = {
     findings: Finding[];
@@ -34,10 +36,12 @@ export function FindingsTable({
                                 {finding.type}
                             </td>
                             <td className="py-2">
-                                {finding.severity}
+                                <StatusBadge value={finding.severity} />
                             </td>
                             <td className="py-2">
-                                {finding.category}
+                                <Badge>
+                                    {finding.category.toUpperCase()}
+                                </Badge>
                             </td>
                         </tr>
                     ))}

@@ -1,4 +1,4 @@
-import {Card} from "../ui/Card";
+import {MetricCard} from "../ui/MetricCard";
 
 type RiskScoreCardProps = {
     score: number;
@@ -6,15 +6,8 @@ type RiskScoreCardProps = {
 
 export function RiskScoreCard({
     score,
-}: RiskScoreCardProps) {
+} : RiskScoreCardProps) {
     return (
-        <Card>
-            <h2 className="mb-2 text-sm text-zinc-400">
-                Risk Score
-            </h2>
-            <p className="text-2xl font-bold">
-                {score}
-            </p>
-        </Card>
+        <MetricCard label="Risk Score" value={score} />
     );
 }

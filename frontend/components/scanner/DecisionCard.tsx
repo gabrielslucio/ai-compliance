@@ -1,20 +1,20 @@
-import {Card} from "../ui/Card";
+import {MetricCard} from "../ui/MetricCard";
 
 type DecisionCardProps = {
     decision: string;
 };
 
 export function DecisionCard({
-    decision,
+    decision
 }: DecisionCardProps) {
+    const color =
+        decision === "block"
+        ? "text-red-500"
+        : decision === "warn"
+        ? "text-amber-500"
+        : "text-green-500";
+
     return (
-        <Card>
-            <h2 className="mb-2 text-sm text-zinc-400">
-                Decision
-            </h2>
-            <p className={`text-2xl font-bold ${decision === "block" ? "text-red-500" : decision === "warn" ? "text-amber-500" : "text-green-500"}`}>
-                {decision.toUpperCase()}
-            </p>
-        </Card>
+        <MetricCard label="Decision" value={decision.toUpperCase()} color={color} />
     );
 }

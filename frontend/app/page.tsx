@@ -27,6 +27,9 @@ export default function Home() {
   const [result, setResult] = useState<ScanResult | null>(null);
 
   async function handleScan(){
+    if(!content.trim()) {
+      return;
+    }
     try {
       const data = await scanContent(content);
       setResult(data);
